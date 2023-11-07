@@ -10,7 +10,7 @@ def get_loader(args):
                                             transforms.ToTensor(), 
                                             transforms.RandomHorizontalFlip(),
                                             transforms.Normalize([0.5], [0.5]),
-                                            transforms.RandomErasing(probability = args.p, sh = args.sh, r1 = args.r1, mean = [0.4914])])
+                                            transforms.RandomErasing(p=0.5, scale=(0.02, 0.33), ratio=(0.3, 3.3))])
         train = datasets.MNIST(os.path.join(args.data_path, args.dset), train=True, download=True, transform=tr_transform)
 
         te_transform = transforms.Compose([transforms.Resize([args.img_size, args.img_size]), transforms.ToTensor(), transforms.Normalize([0.5], [0.5])])
@@ -21,7 +21,7 @@ def get_loader(args):
                                             transforms.ToTensor(),
                                             transforms.RandomHorizontalFlip(),
                                             transforms.Normalize([0.5], [0.5]),
-                                            transforms.RandomErasing(probability = args.p, sh = args.sh, r1 = args.r1, mean = [0.4914])])
+                                            transforms.RandomErasing(p=0.5, scale=(0.02, 0.33), ratio=(0.3, 3.3))])
         train = datasets.FashionMNIST(os.path.join(args.data_path, args.dset), train=True, download=True, transform=tr_transform)
 
         te_transform = transforms.Compose([transforms.Resize([args.img_size, args.img_size]), transforms.ToTensor(), transforms.Normalize([0.5], [0.5])])

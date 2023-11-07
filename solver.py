@@ -78,10 +78,12 @@ class Solver(object):
 
                 logits = self.model(imgs)
                 clf_loss = self.ce(logits, labels)
+                optimizer.first_step(zero_grad=True)
 
-                optimizer.zero_grad()
-                clf_loss.backward()
-                optimizer.step()
+                self.criterion(self.model(imgs), labels).backward()
+                optimizer.second_step(zero_grad=True)
+                # clf_loss.backward()
+                # optimizer.step()
 
                 if i % 50 == 0 or i == (iter_per_epoch - 1):
                     print('Ep: %d/%d, it: %d/%d, err: %.4f' % (epoch + 1, self.args.epochs, i + 1, iter_per_epoch, clf_loss))
