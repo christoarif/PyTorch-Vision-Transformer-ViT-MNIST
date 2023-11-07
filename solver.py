@@ -5,7 +5,7 @@ from torch import optim
 from model import VisionTransformer
 from sklearn.metrics import confusion_matrix, accuracy_score
 from data_loader import get_loader
-
+from sam import SAM
 
 class Solver(object):
     def __init__(self, args):
@@ -62,8 +62,10 @@ class Solver(object):
 
     def train(self):
         iter_per_epoch = len(self.train_loader)
-
-        optimizer = optim.AdamW(self.model.parameters(), self.args.lr, weight_decay=1e-3)
+        base_optimizer = optim.AdamW
+        # base_optimizer = optim.SGD
+        optimizer = SAM(self.model.parameters(), base_optimizer, lr= self.args.lr , weight_decay=1e-3)
+        # optimizer = optim.AdamW(self.model.parameters(), self.args.lr, weight_decay=1e-3)
         cos_decay = optim.lr_scheduler.CosineAnnealingLR(optimizer, self.args.epochs, verbose=True)
 
         for epoch in range(self.args.epochs):
