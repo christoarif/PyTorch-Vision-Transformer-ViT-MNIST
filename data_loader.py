@@ -20,7 +20,8 @@ def get_loader(args):
         tr_transform = transforms.Compose([transforms.RandomCrop(args.img_size, padding=2), 
                                             transforms.ToTensor(),
                                             transforms.RandomHorizontalFlip(),
-                                            transforms.Normalize([0.5], [0.5])])
+                                            transforms.Normalize([0.5], [0.5]),
+                                            transforms.RandomErasing(probability = args.p, sh = args.sh, r1 = args.r1, mean = [0.4914])])
         train = datasets.FashionMNIST(os.path.join(args.data_path, args.dset), train=True, download=True, transform=tr_transform)
 
         te_transform = transforms.Compose([transforms.Resize([args.img_size, args.img_size]), transforms.ToTensor(), transforms.Normalize([0.5], [0.5])])
