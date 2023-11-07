@@ -40,6 +40,12 @@ if __name__ == '__main__':
     parser.add_argument("--n_layers", type=int, default=6, help="number of encoder layers")
     parser.add_argument("--load_model", type=bool, default=False, help="Load saved model")
 
+    # Random Erasing
+    parser.add_argument('--p', default=0.2, type=float, help='Random Erasing probability')
+    parser.add_argument('--sh', default=0.2, type=float, help='max erasing area')
+    parser.add_argument('--r1', default=0.3, type=float, help='aspect of erasing area')
+
+
     start_time = datetime.datetime.now()
     print("Started at " + str(start_time.strftime('%Y-%m-%d %H:%M:%S')))
 
