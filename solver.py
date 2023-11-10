@@ -78,9 +78,10 @@ class Solver(object):
 
                 logits = self.model(imgs)
                 clf_loss = self.ce(logits, labels)
+                clf_loss.backward()
                 optimizer.first_step(zero_grad=True)
 
-                self.criterion(self.model(imgs), labels).backward()
+                self.ce(self.model(imgs), labels).backward()
                 optimizer.second_step(zero_grad=True)
                 # clf_loss.backward()
                 # optimizer.step()
